@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      { "command": ".cursor/hooks/arbitra-context-inject.sh" }
+    ],
+    "afterFileEdit": [
+      { "command": ".cursor/hooks/arbitra-evidence.sh" }
+    ]
+  }
+}

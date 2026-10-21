@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Semantic surface tokens — consumed via Tailwind utilities like
+ * `bg-surface-base`, `bg-surface-raised`, `border-border-subtle`, etc.
+ * Values are raw RGB channels ("r g b") so Tailwind can apply
+ * `<alpha-value>` modifiers (e.g. bg-surface-raised/70).
+ *
+ * Light mode matches prior palette (white/gray-50/gray-200/300).
+ * Dark mode shifts toward near-black "developer terminal" depth
+ * while keeping layered contrast between base / raised / overlay.
+ * Accent and status colors are managed via Tailwind color tokens.
+ */
+:root {
+  /* Light-mode surfaces keep the warm coffee/solarized character without the
+     deeper khaki cast from the #660 pass. Cards remain visibly layered through
+     near-white raised surfaces and slightly warmer borders. */
+  --surface-base:    245 239 224; /* #F5EFE0 — warm coffee page root */
+  --surface-raised:  255 252 246; /* #FFFCF6 — soft near-white cards, panels */
+  --surface-overlay: 255 255 252; /* #FFFFFC — near-white modals, popovers */
+  --border-subtle:   232 224 208; /* #E8E0D0 — warm subtle border */
+  --border-default:  217 203 181; /* #D9CBB5 — warm default border */
+  --input-bg:        255 255 255; /* white — inputs on light mode */
+  --scrollbar-thumb: rgb(156 163 175 / 0.28);
+  --scrollbar-thumb-hover: rgb(107 114 128 / 0.45);
+}
+
+.dark {
+  --surface-base:     10  10  10; /* #0a0a0a — near-black page root */
+  --surface-raised:   20  20  20; /* #141414 — cards, panels */
+  --surface-overlay:  26  26  26; /* #1a1a1a — modals, popovers */
+  --border-subtle:    38  38  38; /* #262626 — zinc-800-ish */
+  --border-default:   51  51  51; /* #333333 — zinc-700-ish */
+  --input-bg:         15  15  15; /* #0f0f0f — one hair darker than raised, readable inside modals */
+  --scrollbar-thumb: rgb(148 163 184 / 0.24);
+  --scrollbar-thumb-hover: rgb(203 213 225 / 0.36);
+}
+
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-subtle {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+  }
+
+  .scrollbar-subtle:hover::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+}
+
+@keyframes heartbeat-scale {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.35); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.2); }
+  56%       { transform: scale(1); }
+}
+
+@keyframes shimmer-flow {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes shimmer-vertical {
+  0%   { background-position: 0 100%; }
+  100% { background-position: 0 -100%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px currentColor); opacity: 1; }
+  50%      { filter: drop-shadow(0 0 6px currentColor); opacity: 0.85; }
+}
+
+/*
+ * Activity feed — streaming row entry.
+ *
+ * `slide-down`  240ms ease-out vertical slide as the row appears.
+ * `fresh-glow`  600ms orange-accent background fade so the row visually
+ *               announces itself, then settles to the surface ring that
+ *               persists for the rest of the ~6s `isFresh` TTL.
+ *
+ * Both keyframes use the existing accent token (orange-600 / #EA580C) at
+ * 12% opacity per spec. `prefers-reduced-motion` users get the glow
+ * without the slide so freshness still reads visually.
+ */
+@keyframes activity-slide-down {
+  0%   { transform: translateY(-8px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes activity-fresh-glow {
+  0%   { background-color: rgba(234, 88, 12, 0.12); }
+  100% { background-color: rgba(234, 88, 12, 0.04); }
+}
+
+.activity-slide-down {
+  animation: activity-slide-down 240ms ease-out;
+}
+
+.activity-fresh-row {
+  /* Persistent ring for the lifetime of `isFresh` (~6s). */
+  box-shadow: inset 0 0 0 1px rgba(234, 88, 12, 0.40);
+  animation: activity-fresh-glow 600ms ease-out;
+  background-color: rgba(234, 88, 12, 0.04);
+}
+
+/*
+ * StatusBadge live-status dot pulse (#662).
+ *
+ * The non-terminal status dot shares the lifecycle tracker's heartbeat rhythm
+ * (`heartbeat-scale`, defined above). Routed through a CSS class — rather than
+ * the previous inline `animation` style — so it can be gated behind
+ * `prefers-reduced-motion: reduce`: reduced-motion users keep the dot visible
+ * but get no motion.
+ */
+.status-dot-pulse {
+  animation: heartbeat-scale 1.8s cubic-bezier(.4, 0, .2, 1) infinite;
+  transform-origin: center;
+}
+
+.lifecycle-station-pulse {
+  animation: heartbeat-scale 1.8s cubic-bezier(.4, 0, .2, 1) infinite;
+  transform-origin: center;
+}
+
+.lifecycle-track-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--lifecycle-track-color) 12%,
+    rgba(255, 255, 255, 0.82) 46%,
+    var(--lifecycle-track-color) 82%
+  );
+  background-size: 220% 100%;
+  animation: shimmer-flow 2.05s linear var(--lifecycle-track-delay, 0ms) infinite;
+}
+
+.lifecycle-track-active {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--lifecycle-track-color) 44%, transparent),
+    0 0 14px color-mix(in srgb, var(--lifecycle-track-color) 66%, transparent),
+    0 0 28px color-mix(in srgb, var(--lifecycle-track-color) 24%, transparent);
+}
+
+.lifecycle-branch-track-shimmer {
+  background: linear-gradient(
+    180deg,
+    var(--lifecycle-track-color) 0%,
+    rgba(255, 255, 255, 0.68) 50%,
+    var(--lifecycle-track-color) 100%
+  );
+  background-size: 100% 300%;
+  animation: shimmer-vertical 1.9s linear infinite;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--lifecycle-track-color) 42%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-slide-down,
+  .activity-fresh-row,
+  .status-dot-pulse,
+  .lifecycle-station-pulse,
+  .lifecycle-track-shimmer,
+  .lifecycle-branch-track-shimmer {
+    animation: none;
+  }
+
+  .lifecycle-track-active,
+  .lifecycle-branch-track-shimmer {
+    box-shadow: none;
+  }
+}
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+  }
+
+  *:hover::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  /* Smooth transitions when toggling dark mode */
+  html {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Global horizontal-overflow guard (screen only).
+     Constrains the document to the viewport width so a stray widthy
+     descendant (long unbreakable token, an element wider than its track)
+     can never produce a page-level horizontal scrollbar on desktop or
+     mobile. This clamps width rather than clipping content: the app shell
+     (layout.tsx) already gives the content column `min-w-0`, so children
+     reflow/shrink to fit instead of being cut off. Root-cause overflow is
+     fixed structurally per-component; this is defense-in-depth only.
+
+     Uses `overflow-x: clip` (not `hidden`) deliberately: `clip` constrains
+     overflow WITHOUT establishing a scroll container, so it does not break
+     the `position: sticky` elements that depend on `body` being their
+     scroll root — the app sidebar (`sticky top-0`) and the dossier metrics
+     aside (`sticky top-4`). `overflow-x: hidden` would silently break both.
+
+     Scoped to a screen media query so the dossier's `@media print` layout
+     (which intentionally positions `.dossier-print-root` absolutely at
+     `inset: 0` for letter/A4 output) is untouched. */
+  @media screen {
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: clip;
+    }
+  }
+
+  /* Dark mode form controls — only color + placeholder + focus ring.
+     Backgrounds and borders are handled by Tailwind utility classes
+     (`bg-input-bg`, `border-border-default`) on each component so the
+     token layer stays the single source of truth. */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color: rgb(226 232 240); /* slate-200 */
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: rgb(100 116 139); /* slate-500 */
+  }
+
+  .dark input:focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    border-color: #EA580C; /* accent — Tailwind orange-600 */
+    outline: none;
+    box-shadow: 0 0 0 1px #EA580C;
+  }
+}
+
+/* Showcase Dossier print styles.
+   When the user prints from /cases/<id>/dossier, we want a clean letter/A4
+   layout with no app chrome. The dossier page wraps its content in a
+   `.dossier-print-root` div; everything outside that subtree is hidden in
+   print. Color-adjust is forced so badges/borders survive grayscale.
+
+   Scoped to `body.dossier-route` so Cmd+P from any OTHER page (board,
+   knowledge, regular case-detail tabs, etc.) renders normally instead of
+   blank. The dossier page toggles this body class via useEffect on mount/
+   unmount. The @media print wrapper means on-screen rendering is unaffected. */
+@media print {
+  body.dossier-route * {
+    visibility: hidden;
+  }
+  body.dossier-route .dossier-print-root,
+  body.dossier-route .dossier-print-root * {
+    visibility: visible;
+  }
+  body.dossier-route .dossier-print-root {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Force descendants to solid black-on-white. Tailwind utilities like
+     text-muted-foreground, text-gray-500, dark:text-gray-100 win specificity
+     over the wrapper's inherited color, so a wildcard reset is required to
+     stop the dossier from rendering as faded grey-on-grey. */
+  body.dossier-route .dossier-print-root *,
+  body.dossier-route .dossier-print-root *::before,
+  body.dossier-route .dossier-print-root *::after {
+    color: #000 !important;
+    background-color: transparent !important;
+    border-color: #000 !important;
+  }
+  /* Re-allow accent UI (status/risk/track badges, decision-type pills,
+     severity chips) to keep their colors. Any element marked
+     .print-keep-color — and its descendants — opts out of the wildcard
+     reset above. Use only on leaf badge elements; applying this to a
+     larger container will also un-blacken muted text inside. */
+  body.dossier-route .dossier-print-root .print-keep-color,
+  body.dossier-route .dossier-print-root .print-keep-color *,
+  body.dossier-route .dossier-print-root .print-keep-color::before,
+  body.dossier-route .dossier-print-root .print-keep-color::after {
+    color: revert-layer !important;
+    background-color: revert-layer !important;
+    border-color: revert-layer !important;
+  }
+  /* Border-only opt-out for accent borders (e.g. decision rows' green/red
+     left rule) where text inside should still be forced to black. Narrowed
+     to border-left-color so the wildcard keeps forcing the other three
+     sides to #000 (the row also has a full `border border-gray-200`). */
+  body.dossier-route .dossier-print-root .print-keep-border {
+    border-left-color: revert-layer !important;
+  }
+  body.dossier-route .dossier-print-root a {
+    color: inherit !important;
+    text-decoration: none;
+  }
+  @page {
+    margin: 0.6in;
+  }
+}

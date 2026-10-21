@@ -1,0 +1,20 @@
+node_modules
+**/node_modules
+.next
+**/.next
+.git
+*.md
+scripts
+.env
+.env.local
+*.log
+.turbo
+dist
+**/dist
+
+# Re-include docs/ tree — bundled into the image and consumed by the
+# helper-bot corpus loader (packages/backend/src/services/helper-bot/
+# corpus-loader.ts). Without this, *.md above strips every doc and the
+# bot ships with an empty system prompt.
+!docs
+!docs/**

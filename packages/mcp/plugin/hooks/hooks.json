@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y arbitra-mcp@^4 hook session_start",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y arbitra-mcp@^4 hook heartbeat",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y arbitra-mcp@^4 hook session_end",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

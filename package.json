@@ -1,0 +1,38 @@
+{
+  "name": "arbitra",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/shared",
+    "packages/backend",
+    "packages/frontend",
+    "packages/mcp"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --env-mode=loose --filter=!arbitra-mcp",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean",
+    "emulators": "docker compose up -d --build --wait firebase",
+    "seed": "turbo run build --filter=@arbitra/backend --output-logs=errors-only && tsx --env-file=packages/frontend/.env.local scripts/seed-demo-data.ts"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.0",
+    "tsx": "^4.19.0"
+  },
+  "overrides": {
+    "protobufjs": "^7.5.5",
+    "undici": "^6.24.0",
+    "picomatch": "^2.3.2",
+    "node-forge": "^1.4.0"
+  },
+  "packageManager": "npm@10.8.0",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "license": "Apache-2.0"
+}

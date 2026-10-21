@@ -1,0 +1,31 @@
+export const ADJECTIVES = [
+  'amber', 'arctic', 'azure', 'bold', 'brave', 'bright', 'broad', 'calm',
+  'cedar', 'clear', 'cold', 'cool', 'crisp', 'dark', 'dawn', 'deep',
+  'dense', 'dry', 'dusk', 'eager', 'early', 'east', 'fair', 'fast',
+  'firm', 'flat', 'free', 'fresh', 'gold', 'grand', 'gray', 'green',
+  'hard', 'high', 'idle', 'jade', 'keen', 'kind', 'large', 'late',
+  'lean', 'light', 'long', 'loud', 'low', 'mild', 'mint', 'neat',
+  'new', 'next', 'night', 'noble', 'north', 'odd', 'old', 'open',
+  'pale', 'plain', 'prime', 'pure', 'quick', 'quiet', 'rare', 'raw',
+  'red', 'rich', 'rigid', 'rough', 'round', 'safe', 'sage', 'sharp',
+  'short', 'silk', 'slim', 'slow', 'small', 'smart', 'soft', 'solar',
+  'solid', 'south', 'stark', 'steel', 'stern', 'still', 'stone', 'swift',
+  'tall', 'tame', 'teal', 'thin', 'tidy', 'true', 'vast', 'warm',
+  'west', 'white', 'wide', 'wild', 'wise', 'young', 'zen',
+];
+
+export const NOUNS = [
+  'arc', 'ash', 'bay', 'beam', 'birch', 'blade', 'bloom', 'bolt',
+  'bridge', 'brook', 'cave', 'cedar', 'cliff', 'cloud', 'coast', 'crest',
+  'dale', 'dawn', 'delta', 'dew', 'dome', 'drift', 'dune', 'dust',
+  'echo', 'edge', 'fern', 'field', 'fjord', 'flame', 'flint', 'flow',
+  'fog', 'ford', 'forge', 'frost', 'gate', 'glen', 'grove', 'gust',
+  'hawk', 'hill', 'isle', 'ivy', 'jade', 'kite', 'lake', 'leaf',
+  'ledge', 'light', 'lime', 'loch', 'log', 'loom', 'marsh', 'mast',
+  'mesa', 'mist', 'moon', 'moor', 'moss', 'nest', 'noon', 'north',
+  'oak', 'peak', 'pine', 'pool', 'quay', 'rain', 'reef', 'ridge',
+  'rim', 'river', 'rock', 'root', 'sage', 'sand', 'shore', 'sky',
+  'slate', 'snow', 'spur', 'star', 'stem', 'stone', 'storm', 'stream',
+  'tide', 'timber', 'tine', 'torch', 'trail', 'vale', 'vault', 'vine',
+  'wake', 'wave', 'wind', 'wood', 'yard', 'zone',
+];

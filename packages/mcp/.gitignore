@@ -1,0 +1,8 @@
+node_modules/
+.env
+.arbitra/.env
+# Stray leftovers from the retired pre-write gate (issue #984) — kept
+# ignored so a pre-existing local checkout can't accidentally commit them.
+.arbitra/.active-case
+.arbitra/.gate-status
+.mcp.json

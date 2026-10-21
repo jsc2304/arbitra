@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "arbitra",
+  "version": "4.0.0",
+  "description": "Arbitra MCP server, session-signal hooks, and lifecycle commands. Runs the published arbitra-mcp npm package; set ARBITRA_URL to your Arbitra instance.",
+  "author": {
+    "name": "jsc2304"
+  },
+  "homepage": "https://github.com/jsc2304/arbitra/tree/main/packages/mcp",
+  "repository": "https://github.com/jsc2304/arbitra",
+  "license": "Apache-2.0",
+  "mcpServers": {
+    "arbitra": {
+      "command": "npx",
+      "args": ["-y", "arbitra-mcp@^4"],
+      "env": {
+        "ARBITRA_URL": "${ARBITRA_URL:-}"
+      }
+    }
+  }
+}

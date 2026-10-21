@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All access goes through the backend (Firebase Admin SDK bypasses rules).
+    // These rules are a safety net — deny all direct client access.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // case_events is an append-only audit trail (Spec 03): explicit deny on
+    // update/delete documents intent for any future client-side access path
+    // and blocks console/scripting accidents at the rules layer. This is
+    // defense-in-depth only, not a behavior change today — the blanket
+    // `{document=**}` match above already denies 100% of direct client
+    // reads/writes, and the Admin SDK (every backend writer, including
+    // EventRepository) bypasses security rules entirely.
+    match /case_events/{eventId} {
+      allow update, delete: if false;
+    }
+  }
+}

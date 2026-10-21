@@ -1,0 +1,16 @@
+{
+  "name": "Arbitra | The Agent Management System",
+  "short_name": "Arbitra",
+  "description": "AI-native Engineering Control Plane that manages, reviews, validates, and governs AI-assisted software development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

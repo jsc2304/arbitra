@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "arbitra",
+  "description": "Arbitra MCP server, session-signal hooks, and lifecycle commands for Claude Code.",
+  "owner": { "name": "jsc2304" },
+  "plugins": [
+    {
+      "name": "arbitra",
+      "source": "./packages/mcp/plugin",
+      "description": "Arbitra MCP server, session-signal hooks, and lifecycle commands."
+    }
+  ]
+}
