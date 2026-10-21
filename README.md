@@ -2,7 +2,7 @@
 
 **See what your AI coding agents are doing, and let evidence and risk decide what gets merged.**
 
-[![Release](https://img.shields.io/github/v/release/jsc2304/arbitra)](https://github.com/jsc2304/arbitra/releases)
+[![Release](https://img.shields.io/github/v/release/jsc2304/arbitra?sort=semver)](https://github.com/jsc2304/arbitra/releases)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![MCP: Claude Code, Cursor, Codex](https://img.shields.io/badge/MCP-Claude%20Code%20%7C%20Cursor%20%7C%20Codex-8A2BE2)](docs/mcp.md)
 [![Node ≥ 20.19](https://img.shields.io/badge/node-%E2%89%A520.19-339933)](#requirements)
@@ -226,7 +226,7 @@ Arbitra was built in 2026 and is published as a reference implementation, as is.
 
 ## Feedback
 
-Questions and ideas go to [Discussions](https://github.com/jsc2304/arbitra/discussions), bugs to [Issues](https://github.com/jsc2304/arbitra/issues); security reports follow [SECURITY.md](SECURITY.md). Answers may take a while or not come at all. If Arbitra is useful to you, a star helps others find it.
+Questions and ideas go to [Discussions](https://github.com/jsc2304/arbitra/discussions), bugs to [Issues](https://github.com/jsc2304/arbitra/issues), changes as pull requests ([CONTRIBUTING.md](CONTRIBUTING.md)); security reports follow [SECURITY.md](SECURITY.md). Answers may take a while or not come at all. If Arbitra is useful to you, a star helps others find it.
 
 ## Development
 
@@ -237,7 +237,7 @@ npm run lint
 npm run build
 ```
 
-Conventions for contributors and coding agents are in [AGENTS.md](AGENTS.md).
+Contributions go through issues and pull requests, see [CONTRIBUTING.md](CONTRIBUTING.md). Conventions for contributors and coding agents are in [AGENTS.md](AGENTS.md).
 
 ## License
 
