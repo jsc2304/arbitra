@@ -2,7 +2,7 @@
 
 **See what your AI coding agents are doing, and let evidence and risk decide what gets merged.**
 
-[![Release](https://img.shields.io/github/v/release/jsc2304/arbitra)](https://github.com/jsc2304/arbitra/releases)
+[![Release](https://img.shields.io/github/v/release/jsc2304/arbitra?sort=semver)](https://github.com/jsc2304/arbitra/releases)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![MCP: Claude Code, Cursor, Codex](https://img.shields.io/badge/MCP-Claude%20Code%20%7C%20Cursor%20%7C%20Codex-8A2BE2)](docs/mcp.md)
 [![Node ≥ 20.19](https://img.shields.io/badge/node-%E2%89%A520.19-339933)](#requirements)
