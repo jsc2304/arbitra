@@ -226,7 +226,7 @@ Arbitra was built in 2026 and is published as a reference implementation, as is.
 
 ## Feedback
 
-Questions and ideas go to [Discussions](https://github.com/jsc2304/arbitra/discussions), bugs to [Issues](https://github.com/jsc2304/arbitra/issues); security reports follow [SECURITY.md](SECURITY.md). Answers may take a while or not come at all. If Arbitra is useful to you, a star helps others find it.
+Questions and ideas go to [Discussions](https://github.com/jsc2304/arbitra/discussions), bugs to [Issues](https://github.com/jsc2304/arbitra/issues), changes as pull requests ([CONTRIBUTING.md](CONTRIBUTING.md)); security reports follow [SECURITY.md](SECURITY.md). Answers may take a while or not come at all. If Arbitra is useful to you, a star helps others find it.
 
 ## Development
 
@@ -237,7 +237,7 @@ npm run lint
 npm run build
 ```
 
-Conventions for contributors and coding agents are in [AGENTS.md](AGENTS.md).
+Contributions go through issues and pull requests, see [CONTRIBUTING.md](CONTRIBUTING.md). Conventions for contributors and coding agents are in [AGENTS.md](AGENTS.md).
 
 ## License
 
