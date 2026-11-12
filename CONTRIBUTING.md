@@ -23,7 +23,7 @@ Issues and pull requests are welcome. Arbitra is published as a reference implem
 
 5. Open a pull request against `main` and fill in the template. Use a Conventional Commits title (`fix: …`, `feat: …`, `docs: …`).
 
-`main` is protected: every change goes through a pull request, CI (`build-and-test`, `docker-build`) must pass, and the maintainer merges with squash. CI on pull requests from first-time contributors starts after the maintainer approves the run.
+`main` is protected: every change goes through a pull request, CI (`build-and-test`) must pass, and the maintainer merges with squash. CI on pull requests from first-time contributors starts after the maintainer approves the run.
 
 ## License
 
